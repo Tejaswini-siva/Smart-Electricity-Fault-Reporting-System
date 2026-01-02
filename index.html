@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Smart Electricity Fault Reporting</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #003366;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    table {
+      width: 90%;
+      margin: 30px auto;
+      border-collapse: collapse;
+      background-color: white;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    th {
+      background-color: #0059b3;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    /* ✅ HOVER EFFECT */
+    tbody tr:hover {
+      background-color: #d9ebff;
+      cursor: pointer;
+      transform: scale(1.01);
+      transition: all 0.2s ease-in-out;
+    }
+
+    .high {
+      color: orange;
+      font-weight: bold;
+    }
+
+    .critical {
+      color: red;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #003366;
+      color: white;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h2>Smart Electricity Fault Reporting System</h2>
+  <p>Reported Fault Details</p>
+</header>
+
+<table>
+  <thead>
+    <tr>
+      <th>Fault ID</th>
+      <th>Location</th>
+      <th>Fault Type</th>
+      <th>Severity</th>
+      <th>Reported Date</th>
+    </tr>
+  </thead>
+
+  <tbody id="faultTable"></tbody>
+</table>
+
+<footer>
+  © 2026 Electricity Board Monitoring System
+</footer>
+
+<script>
+  fetch("/faults")
+    .then(res => res.json())
+    .then(data => {
+      const table = document.getElementById("faultTable");
+
+      data.forEach(fault => {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+          <td>${fault.id}</td>
+          <td>${fault.location}</td>
+          <td>${fault.faultType}</td>
+          <td class="${fault.severity.toLowerCase()}">${fault.severity}</td>
+          <td>${fault.reportedDate}</td>
+        `;
+
+        table.appendChild(row);
+      });
+    });
+</script>
+
+</body>
+</html>
