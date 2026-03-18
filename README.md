@@ -1,0 +1,1 @@
+The Smart Electricity Fault Reporting System is a web-based application designed to efficiently report, track, and manage electricity-related faults. It helps users notify authorities about issues like power outages, line faults, and electrical hazards, improving response time and service quality
